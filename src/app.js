@@ -1,11 +1,17 @@
+// load additional environment variables (ex: database and storage bucket passwords) from .env file
+const env = require('dotenv');
+env.config();
+
 // import libraries
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const env = require('dotenv');
 
-// load additional environment variables (ex: database and storage bucket passwords) from .env file
-env.config();
+// initialize database and schemas
+require('./model/db');
+
+// controllers
+const dummyDataController = require('./controller/DummyData.controller');
 
 // allow requests from any origin (so our web application can easily communicate with our server)
 app.use(cors({ origin: '*' }));
@@ -14,6 +20,11 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// TODO: delete this example endpoint once we have developed a few real endpoints
+// example of how to create an endpoint for a particular resource and link it to a controller
+app.use('/api/v1/DummyData', dummyDataController);
+
+// TODO: delete this
 // dummy GET endpoint that returns Hello World
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -21,7 +32,6 @@ app.get('/', (req, res) => {
 
 // start the application so that it listens at port 8081
 const port = process?.env?.PORT || 8081;
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
