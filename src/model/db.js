@@ -24,3 +24,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true }).then(() => {
 });
 
 require('./DummyData.model');
+require('./Clothing.model');
+require('./User.model');

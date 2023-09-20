@@ -12,6 +12,9 @@ require('./model/db');
 
 // controllers
 const dummyDataController = require('./controller/DummyData.controller');
+const clothingController = require('./controller/Clothing.controller');
+const generationController = require('./controller/Generation.controller');
+const authController = require('./controller/Auth.controller');
 
 // allow requests from any origin (so our web application can easily communicate with our server)
 app.use(cors({ origin: '*' }));
@@ -23,6 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 // TODO: delete this example endpoint once we have developed a few real endpoints
 // example of how to create an endpoint for a particular resource and link it to a controller
 app.use('/api/v1/DummyData', dummyDataController);
+app.use('/api/v1/Clothing', clothingController);
+app.use('/api/v1/Generation', generationController);
+app.use('/api/v1/Auth', authController);
 
 // TODO: delete this
 // dummy GET endpoint that returns Hello World
