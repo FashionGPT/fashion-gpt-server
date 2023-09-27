@@ -1,41 +1,42 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const OutfitSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  accessories: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Clothing",
-  },
-  shirt: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Clothing",
-  },
-  pants: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Clothing",
-  },
-  shoes: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Clothing",
-  },
-  isFavorite: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    required: true,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-    required: true,
-  },
+let OutfitSchema = new mongoose.Schema({
+    // user who created the outfit
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    // whether an outfit is marked as favorite by the user
+    isFavorite: {
+        type: Boolean,
+        default: false
+    },
+    // database reference to clothing object of shirt
+    shirt: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clothing"
+    },
+    // database reference to clothing object of pants
+    pants: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clothing"
+    },
+    // database reference to clothing object of shoes
+    shoes: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clothing"
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+        required: true
+    }
 });
 
-mongoose.model("Outfit", OutfitSchema);
+mongoose.model('Outfit', OutfitSchema);
