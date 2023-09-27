@@ -11,15 +11,18 @@ let OutfitSchema = new mongoose.Schema({
     },
     // database reference to clothing object of shirt
     shirt: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clothing"
     },
     // database reference to clothing object of pants
     pants: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clothing"
     },
     // database reference to clothing object of shoes
     shoes: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clothing"
     },
     createdAt: {
         type: Date
