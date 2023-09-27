@@ -1,37 +1,20 @@
 const mongoose = require('mongoose');
 
 let ClothingSchema = new mongoose.Schema({
-    userId: {
+    // name of the clothing (ex: "Flannel Shirt")
+    name: {
         type: String
     },
-    isFavorite: {
-        type: Boolean
-    },
-    shirt: {
+    // type of the clothing (ex: "Shirt", "Pant", "Shoes", etc.)
+    type: {
         type: String
     },
-    shirtLink: {
+    // link to amazon
+    amazonLink: {
         type: String
     },
-    shirtImageURL: {
-        type: String
-    },
-    pants: {
-        type: String
-    },
-    pantsLink: {
-        type: String
-    },
-    pantsImageURL: {
-        type: String
-    },
-    shoes: {
-        type: String
-    },
-    shoesLink: {
-        type: String
-    },
-    shoesImageURL: {
+    // link to image of the clothing
+    imageUrl: {
         type: String
     },
     createdAt: {
