@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 let OutfitSchema = new mongoose.Schema({
     // user who created the outfit
     userID: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     // whether an outfit is marked as favorite by the user
     isFavorite: {
