@@ -4,11 +4,13 @@ let OutfitSchema = new mongoose.Schema({
     // user who created the outfit
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     // whether an outfit is marked as favorite by the user
     isFavorite: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     // database reference to clothing object of shirt
     shirt: {
@@ -26,10 +28,14 @@ let OutfitSchema = new mongoose.Schema({
         ref: "Clothing"
     },
     createdAt: {
-        type: Date
+        type: Date,
+        default: Date.now,
+        required: true
     },
     updatedAt: {
-        type: Date
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 

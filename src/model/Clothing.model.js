@@ -1,13 +1,15 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 let ClothingSchema = new mongoose.Schema({
     // name of the clothing (ex: "Flannel Shirt")
     name: {
-        type: String
+        type: String,
+        required: true
     },
     // type of the clothing (ex: "Shirt", "Pant", "Shoes", etc.)
     type: {
-        type: String
+        type: String,
+        enum: ["Shirt", "Pants", "Accessories", "Shoes"],
     },
     // link to amazon
     amazonLink: {
@@ -18,11 +20,15 @@ let ClothingSchema = new mongoose.Schema({
         type: String
     },
     createdAt: {
-        type: Date
+        type: Date,
+        default: Date.now,
+        required: true
     },
     updatedAt: {
-        type: Date
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 
-mongoose.model('Clothing', ClothingSchema);
+mongoose.model("Clothing", ClothingSchema);
