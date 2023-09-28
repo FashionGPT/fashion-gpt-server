@@ -15,6 +15,7 @@ const dummyDataController = require('./controller/DummyData.controller');
 const clothingController = require('./controller/Clothing.controller');
 const generationController = require('./controller/Generation.controller');
 const authController = require('./controller/Auth.controller');
+const postController = require('./controller/Post.controller');
 
 // allow requests from any origin (so our web application can easily communicate with our server)
 app.use(cors({ origin: '*' }));
@@ -29,6 +30,7 @@ app.use('/api/v1/DummyData', dummyDataController);
 app.use('/api/v1/Clothing', clothingController);
 app.use('/api/v1/Generation', generationController);
 app.use('/api/v1/Auth', authController);
+app.use('/api/v1/Post', postController);
 
 // TODO: delete this
 // dummy GET endpoint that returns Hello World
