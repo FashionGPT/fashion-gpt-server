@@ -47,10 +47,16 @@ app.use('/api/v1/Post', postController);
 app.use(auth(config));
 
 // TODO: delete this
-// dummy GET endpoint that returns Hello World
+// GET endpoint that returns user detail from auth0
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+  const userDetails = {
+    idToken: req?.oidc?.idToken,
+    accessToken: req?.oidc?.accessToken,
+    refreshToken: req?.oidc?.refreshToken,
+    idTokenClaims: req?.oidc?.idTokenClaims,
+    user: req?.oidc?.user
+  };
+  res.send(req?.oidc?.isAuthenticated() ? userDetails : 'Logged out');
 });
 
 // start the application so that it listens at port 8081
