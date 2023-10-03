@@ -1,45 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 let ClothingSchema = new mongoose.Schema({
-    userId: {
+    // name of the clothing (ex: "Flannel Shirt")
+    name: {
+        type: String,
+        required: true
+    },
+    // type of the clothing (ex: "Shirt", "Pant", "Shoes", etc.)
+    type: {
+        type: String,
+        enum: ["Shirt", "Pants", "Accessories", "Shoes"],
+    },
+    // link to amazon
+    amazonLink: {
         type: String
     },
-    isFavorite: {
-        type: Boolean
-    },
-    shirt: {
-        type: String
-    },
-    shirtLink: {
-        type: String
-    },
-    shirtImageURL: {
-        type: String
-    },
-    pants: {
-        type: String
-    },
-    pantsLink: {
-        type: String
-    },
-    pantsImageURL: {
-        type: String
-    },
-    shoes: {
-        type: String
-    },
-    shoesLink: {
-        type: String
-    },
-    shoesImageURL: {
+    // link to image of the clothing
+    imageUrl: {
         type: String
     },
     createdAt: {
-        type: Date
+        type: Date,
+        default: Date.now,
+        required: true
     },
     updatedAt: {
-        type: Date
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 
-mongoose.model('Clothing', ClothingSchema);
+mongoose.model("Clothing", ClothingSchema);
