@@ -5,10 +5,21 @@ env.config();
 // import libraries
 const express = require('express');
 const cors = require('cors');
+const { auth } = require('express-openid-connect');
 const app = express();
 
 // initialize database and schemas
 require('./model/db');
+
+// config info for auth
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET,
+  baseURL: `http://localhost:${process.env.PORT}`,
+  clientID: process.env.CLIENT_ID,
+  issuerBaseURL: process.env.ISSUER_BASE_URL
+};
 
 // controllers
 const dummyDataController = require('./controller/DummyData.controller');
@@ -32,10 +43,20 @@ app.use('/api/v1/Generation', generationController);
 app.use('/api/v1/Auth', authController);
 app.use('/api/v1/Post', postController);
 
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+
 // TODO: delete this
-// dummy GET endpoint that returns Hello World
+// GET endpoint that returns user detail from auth0
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  const userDetails = {
+    idToken: req?.oidc?.idToken,
+    accessToken: req?.oidc?.accessToken,
+    refreshToken: req?.oidc?.refreshToken,
+    idTokenClaims: req?.oidc?.idTokenClaims,
+    user: req?.oidc?.user
+  };
+  res.send(req?.oidc?.isAuthenticated() ? userDetails : 'Logged out');
 });
 
 // start the application so that it listens at port 8081
