@@ -29,7 +29,6 @@ router.post("/create", (req, res) => {
 router.get("/community", (req, res) => {
   Post.find()
     .then((result) => {
-      console.log(result);
       res.send({ result: result }).status(200);
     })
     .catch((error) => {
