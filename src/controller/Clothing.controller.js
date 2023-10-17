@@ -30,4 +30,3 @@ router.post('/get-favorites', (req, res) => {
 });
 
 module.exports = router;
-
