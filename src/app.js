@@ -28,6 +28,7 @@ const generationController = require('./controller/Generation.controller');
 const authController = require('./controller/Auth.controller');
 const postController = require('./controller/Post.controller');
 const chatGPTController = require('./controller/ChatGPT.controller');
+const googleShoppingController = require('./controller/GoogleShopping.controller')
 
 // allow requests from any origin (so our web application can easily communicate with our server)
 app.use(cors({ origin: '*' }));
@@ -44,6 +45,7 @@ app.use('/api/v1/Generation', generationController);
 app.use('/api/v1/Auth', authController);
 app.use('/api/v1/Post', postController);
 app.use('/api/v1/ChatGPT', chatGPTController);
+app.use('/api/v1/GoogleShopping', googleShoppingController);
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
