@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const axios = require('axios');
 const SERP_API_KEY = process.env.SERP_API_KEY;
 
 router.post('/clothing-shopping-data', (req, res) => {
@@ -22,3 +23,5 @@ router.post('/clothing-shopping-data', (req, res) => {
         res.send({message: "failure", reason: error}).status(500);
       });
 });
+
+module.exports = router;
