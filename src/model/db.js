@@ -13,7 +13,7 @@ if (!DB_PASSWORD) {
     process.exit(1);
 }
 
-const dbURI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.meehb.mongodb.net/database?retryWrites=true&w=majority`;
+const dbURI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@fashiongptcluster.26u8sec.mongodb.net/database?retryWrites=true&w=majority`;
 
 console.debug("Connecting to database...");
 mongoose.connect(dbURI, { useNewUrlParser: true }).then(() => {
