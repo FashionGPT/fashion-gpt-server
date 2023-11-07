@@ -40,16 +40,24 @@ router.post("/outfit", async (req, res) => {
     c.amazonLink = data.url;
     c.imageUrl = data.thumbnail;
     c.type = key.substring(0, 1).toUpperCase() + key.substring(1);
-    const clothingObject = c
-      .save()
-      .then((result) => {
-        console.debug("Saved clothing object");
-        return result;
-      })
-      .catch((error) => {
-        console.error("Unable to save clothing object", error);
-        res.send({ message: "failure", reason: error }).status(500);
-      });
+    // const clothingObject = c
+    //   .save()
+    //   .then((result) => {
+    //     console.debug("Saved clothing object");
+    //     return result;
+    //   })
+    //   .catch((error) => {
+    //     console.error("Unable to save clothing object", error);
+    //     res.send({ message: "failure", reason: error }).status(500);
+    //   });
+    let clothingObject;
+    try {
+      clothingObject = await c.save();
+      console.debug("Saved clothing object");
+    } catch (error) {
+      console.error("Unable to save clothing object", error);
+      res.send({ message: "failure", reason: error }).status(500);
+    }
     clothing[key] = clothingObject;
   }
 
@@ -66,10 +74,16 @@ router.post("/outfit", async (req, res) => {
       result.shoes = clothing["shoes"];
       console.log(result);
       const clone = Object.assign({}, result);
+      // res
+      //   .send({
+      //     message: "successfully created new outfit object",
+      //     result: clone,
+      //   })
+      //   .status(200);
       res
         .send({
           message: "successfully created new outfit object",
-          result: clone,
+          result,
         })
         .status(200);
     })
