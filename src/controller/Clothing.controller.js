@@ -5,6 +5,9 @@ const Outfit = mongoose.model('Outfit');
 
 router.get('/clothing-feed', (req, res) => {
     Outfit.find()
+    .populate('shirt')
+    .populate('pants')
+    .populate('shoes')
     .sort({createdAt: -1})
     .then((result) => {
         console.debug("Retrieved all Clothing in timeline view");
