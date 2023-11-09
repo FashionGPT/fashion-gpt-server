@@ -9,7 +9,7 @@ module.exports = router;
 
 router.post("/outfit", async (req, res) => {
   const fetchEntireOutfit = async (prompt) => {
-    console.log(prompt);
+    console.debug(prompt);
     const response = await axios.post(
       "http://localhost:8081/api/v1/ChatGPT/create-outfit-from-chatgpt",
       {
@@ -40,16 +40,6 @@ router.post("/outfit", async (req, res) => {
     c.amazonLink = data.url;
     c.imageUrl = data.thumbnail;
     c.type = key.substring(0, 1).toUpperCase() + key.substring(1);
-    // const clothingObject = c
-    //   .save()
-    //   .then((result) => {
-    //     console.debug("Saved clothing object");
-    //     return result;
-    //   })
-    //   .catch((error) => {
-    //     console.error("Unable to save clothing object", error);
-    //     res.send({ message: "failure", reason: error }).status(500);
-    //   });
     let clothingObject;
     try {
       clothingObject = await c.save();
@@ -72,14 +62,7 @@ router.post("/outfit", async (req, res) => {
       result.shirt = clothing["shirt"];
       result.pants = clothing["pants"];
       result.shoes = clothing["shoes"];
-      console.log(result);
-      const clone = Object.assign({}, result);
-      // res
-      //   .send({
-      //     message: "successfully created new outfit object",
-      //     result: clone,
-      //   })
-      //   .status(200);
+      console.debug(result);
       res
         .send({
           message: "successfully created new outfit object",
