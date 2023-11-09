@@ -3,6 +3,23 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Outfit = mongoose.model('Outfit');
 
+router.post('/outfits-for-user', (req, res) => {
+    Outfit.find({
+        userID: new mongoose.Types.ObjectId(req.body.userID)
+    })
+    .populate('shirt')
+    .populate('pants')
+    .populate('shoes')
+    .sort({createdAt: -1})
+    .then((result) => {
+        console.debug("Retrieved all outfits for user");
+        res.send({result: result}).status(200);
+    }).catch((error) => {
+        console.error("Unable to retrieve all outfits for user", error);
+        res.send({message: "failure", reason: error}).status(500);
+    });
+});
+
 router.get('/clothing-feed', (req, res) => {
     Outfit.find()
     .populate('shirt')
