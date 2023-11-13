@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Outfit = mongoose.model('Outfit');
 
 router.post('/outfits-for-user', (req, res) => {
+    console.debug("Getting outfits for user", req.body.userID)
     Outfit.find({
         userID: new mongoose.Types.ObjectId(req.body.userID)
     })
