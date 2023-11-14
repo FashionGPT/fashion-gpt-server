@@ -4,37 +4,60 @@ const mongoose = require("mongoose");
 const Clothing = mongoose.model("Clothing");
 const Outfit = mongoose.model("Outfit");
 const axios = require("axios");
+const {createOAuthUser} = require("../middleware/Auth.middleware");
 
 module.exports = router;
 
-router.post("/outfit", async (req, res) => {
+router.post("/outfit", createOAuthUser, async (req, res) => {
   const fetchEntireOutfit = async (prompt) => {
     console.debug(prompt);
     const response = await axios.post(
       "http://localhost:8081/api/v1/ChatGPT/create-outfit-from-chatgpt",
       {
         prompt: prompt,
-      }
+      },
+        {
+          headers: {
+            "user": req?.headers?.user || "{}"
+          }
+        }
     );
     return response.data;
   };
   const fetchGoogleData = async (item) => {
-    const response = await axios.post(
-      "http://localhost:8081/api/v1/GoogleShopping/clothing-shopping-data",
-      {
-        item: item,
-      }
-    );
-    return {
-      thumbnail: response.data?.inline_shopping_results[0].thumbnail,
-      url: response.data?.inline_shopping_results[0].link,
-    };
+    console.debug("Fetching google shopping data for", item);
+    try {
+      const response = await axios.post(
+          "http://localhost:8081/api/v1/GoogleShopping/clothing-shopping-data",
+          {
+            item: item,
+          },
+          {
+            headers: {
+              "user": req?.headers?.user || "{}"
+            }
+          }
+      );
+      // console.debug("Got inline shopping results", response.data.inline_shopping_results);
+      return {
+        thumbnail: response.data?.shopping_results[0].thumbnail,
+        url: response.data?.shopping_results[0].link,
+      };
+    } catch (err) {
+      console.error("Unable to fetch clothing shopping data", err);
+      return undefined;
+    }
   };
 
   const outfit = await fetchEntireOutfit(req.body.prompt);
   const clothing = {};
   for (const [key, value] of Object.entries(outfit)) {
     const data = await fetchGoogleData(value);
+    await new Promise(r => setTimeout(r, 1000));
+    if (!data) {
+      res.status(500).send({message: "Unable to fetch clothing shopping data"});
+      console.error("Shopping data", data);
+    }
     const c = new Clothing();
     c.name = value;
     c.amazonLink = data.url;

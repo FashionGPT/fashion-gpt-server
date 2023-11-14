@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d4ce9a0-a701-4ddb-a853-ac3f09884b50" name="Changes" comment="Establish connection to MongoDB and setup for folder structure of server">
+      <change afterPath="$PROJECT_DIR$/src/middleware/Auth.middleware.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ChatGPT.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ChatGPT.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Clothing.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Clothing.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Generation.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Generation.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/GoogleShopping.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/GoogleShopping.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Post.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Post.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/User.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.model.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +72,7 @@
       <workItem from="1698108876132" duration="11000" />
       <workItem from="1698438560843" duration="4000" />
       <workItem from="1698783923724" duration="18000" />
+      <workItem from="1699988308025" duration="3011000" />
     </task>
     <task id="LOCAL-00001" summary="Establish connection to MongoDB and setup for folder structure of server">
       <option name="closed" value="true" />

@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const {createOAuthUser} = require("../middleware/Auth.middleware");
 const Post = mongoose.model("Post");
 
-router.post("/create", (req, res) => {
-  if (!req?.body?.user) {
+router.post("/create", createOAuthUser, (req, res) => {
+  if (!req?.body?.userID) {
       res.status(400);
       res.send({
-          message: "No user provided"
+          message: "No userID provided"
       });
       return;
   }
@@ -22,7 +23,7 @@ router.post("/create", (req, res) => {
   const postData = new Post();
   postData.title = req.body.title;
   postData.text = req.body.text;
-  postData.user = new mongoose.Types.ObjectId(req.body.user);
+  postData.user = new mongoose.Types.ObjectId(req.body.userID);
   postData.outfit = new mongoose.Types.ObjectId(req.body.outfit);
   postData
     .save()
@@ -41,7 +42,7 @@ router.post("/create", (req, res) => {
     });
 });
 
-router.get("/community", (req, res) => {
+router.get("/community", createOAuthUser, (req, res) => {
   Post.find()
     .populate('user')
     .populate({

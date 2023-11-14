@@ -2,6 +2,7 @@ const { OpenAI } = require('openai');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const {createOAuthUser} = require("../middleware/Auth.middleware");
 const CHATGPT_API_KEY = process?.env?.CHATGPT_API_KEY;
 
 // connect openai to specific api key (generate from openai account)
@@ -10,7 +11,7 @@ const openai = new OpenAI({
   });
 
 // ChatGPT input to get JSON response
-router.post('/create-outfit-from-chatgpt', (req, res) => {
+router.post('/create-outfit-from-chatgpt', createOAuthUser, (req, res) => {
     const requestFacts = req.body.prompt;
     openai.chat.completions.create({
         model: "gpt-3.5-turbo",
