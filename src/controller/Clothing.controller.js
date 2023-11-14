@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const {createOAuthUser} = require("../middleware/Auth.middleware");
 const Outfit = mongoose.model('Outfit');
 
-router.post('/outfits-for-user', (req, res) => {
+router.post('/outfits-for-user', createOAuthUser, (req, res) => {
     console.debug("Getting outfits for user", req.body.userID)
     Outfit.find({
         userID: new mongoose.Types.ObjectId(req.body.userID)
@@ -21,7 +22,7 @@ router.post('/outfits-for-user', (req, res) => {
     });
 });
 
-router.get('/clothing-feed', (req, res) => {
+router.get('/clothing-feed', createOAuthUser, (req, res) => {
     Outfit.find()
     .populate('shirt')
     .populate('pants')
@@ -36,7 +37,7 @@ router.get('/clothing-feed', (req, res) => {
     });
 });
 
-router.post('/get-favorites', (req, res) => {
+router.post('/get-favorites', createOAuthUser, (req, res) => {
     Outfit.find({
         isFavorite : true,
         userID: new mongoose.Types.ObjectId(req.body.userID)
@@ -50,7 +51,7 @@ router.post('/get-favorites', (req, res) => {
 });
 
 // running query on clothing generation by user id
-router.post('/get-outfit',(req, res) => {
+router.post('/get-outfit', createOAuthUser, (req, res) => {
     Outfit.find({
         userID: new mongoose.Types.ObjectId(req.body.userID)
     }).then((result) => {
